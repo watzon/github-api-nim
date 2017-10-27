@@ -83,7 +83,6 @@ proc seqTo[T](data: string): seq[T] =
 
 proc request*(client: GithubApiClient, path: string, body: string = "", query: JsonNode = nil, httpMethod: string = $HttpGet): Response =
     var url = client.baseUrl / path & toQueryString(query)
-    echo(url)
     var headers: HttpHeaders = nil
     if client.accessToken != nil:
         headers = newHttpHeaders({ "Authorization": "token " & client.accessToken })

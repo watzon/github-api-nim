@@ -1,3 +1,8 @@
+## This module contains procs related to Repository management
+## in GitHub. Information on the procs in this file can be
+## found in the GitHub API documentation.
+## https://developer.github.com/v3/repos/
+
 import httpclient, ospaths, strutils, json, marshal
 import ./client
 
@@ -101,6 +106,7 @@ proc listRepos*(
     direction: string = nil,
     limit: int = 100,
     page: int = 1): Response =
+    ## https://developer.github.com/v3/repos/#list-your-repositories
 
     var data = %*{
         "visibility": visibility,
@@ -122,6 +128,7 @@ proc listUserRepos*(
     direction: string = nil,
     limit: int = 100,
     page: int = 1): Response =
+    ## https://developer.github.com/v3/repos/#list-user-repositories
 
     var data = %*{
         "type": repoType,
@@ -139,6 +146,7 @@ proc listOrgRepos*(
     repoType: string = nil,
     limit: int = 100,
     page: int = 1): Response =
+    ## https://developer.github.com/v3/repos/#list-organization-repositories
 
     var data = %*{
         "type": repoType,
@@ -151,6 +159,7 @@ proc listOrgRepos*(
 proc listAllRepos*(
     client: GithubApiClient,
     since: int = 0): Response =
+    ## https://developer.github.com/v3/repos/#list-all-public-repositories
 
     var data = %*{
         "since": since
@@ -175,6 +184,7 @@ proc createRepo*(
     allow_squash_merge: bool = true,
     allow_merge_commit: bool = true,
     allow_rebase_merge: bool = true): Response =
+    ## https://developer.github.com/v3/repos/#create
 
     var data = %*{
         "name": name,
@@ -199,6 +209,7 @@ proc getRepo*(
     client: GithubApiClient,
     owner: string,
     repo: string): Response =
+    ## https://developer.github.com/v3/repos/#get
 
     var path = "/repos" / owner / repo
     client.request(path)
@@ -218,6 +229,7 @@ proc editRepo*(
     allow_squash_merge: bool = true,
     allow_merge_commit: bool = true,
     allow_rebase_merge: bool = true): Response =
+    ## https://developer.github.com/v3/repos/#edit
 
     var data = %*{
         "name": if name != nil: name else: repo,
@@ -239,6 +251,7 @@ proc listRepoTopics*(
     client: GithubApiClient,
     owner: string,
     repo: string): Response =
+    ## https://developer.github.com/v3/repos/#list-all-topics-for-a-repository
 
     var path = "/repos" / owner / repo / "topics"
     client.request(path)
@@ -248,6 +261,7 @@ proc replaceRepoTopics*(
     owner: string,
     repo: string,
     names: seq[string]): Response =
+    ## https://developer.github.com/v3/repos/#replace-all-topics-for-a-repository
 
     var data = %*{
         "names": names
@@ -260,6 +274,7 @@ proc listContributors*(
     owner: string,
     repo: string,
     anon: bool = false): Response =
+    ## https://developer.github.com/v3/repos/#list-contributors
 
     var data = %*{
         "anon": anon
@@ -271,6 +286,7 @@ proc listLanguages*(
     client: GithubApiClient,
     owner: string,
     repo: string): Response =
+    ## https://developer.github.com/v3/repos/#list-languages
 
     var path = "/repos" / owner / repo / "languages"
     client.request(path)
@@ -281,6 +297,7 @@ proc listTeams*(
     repo: string,
     limit: int = 0,
     page: int = 1): Response =
+    ## https://developer.github.com/v3/repos/#list-teams
 
     var data = %*{
         "per_page": limit,
@@ -295,6 +312,7 @@ proc listTags*(
     repo: string,
     limit: int = 0,
     page: int = 1): Response =
+    ## https://developer.github.com/v3/repos/#list-tags
 
     var data = %*{
         "per_page": limit,
@@ -307,6 +325,7 @@ proc deleteRepo*(
     client: GithubApiClient,
     owner: string,
     repo: string): Response =
-
+    ## https://developer.github.com/v3/repos/#delete-a-repository
+    
     var path = "/repos" / owner / repo
     client.request(path, httpMethod = $HttpDelete)

@@ -40,7 +40,7 @@ if res.status.startsWith("200"):
 I have gotten a lot done on this in a very short period of time, but there is still a lot left to do. Here are the planned features:
 
 - [x] Base Client
-- [-] Data Types
+- [ ] Data Types
     - [ ] Activity
     - [x] Gists
     - [ ] Gist Data

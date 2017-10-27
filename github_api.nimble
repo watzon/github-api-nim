@@ -3,7 +3,7 @@
 version       = "0.1.0"
 author        = "Chris Watson"
 description   = "Connector for the GitHub API v3"
-license       = "WTFNMFPL-1.0"
+license       = "WTFPL"
 
 srcDir        = "github_api"
 skipDirs      = @["test"]
